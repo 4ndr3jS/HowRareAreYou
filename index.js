@@ -1,4 +1,7 @@
+var unitMode = 'cm';
+
 function setUnit(u) {
+    unitMode = u;
     document.getElementById("h-cm").classList.toggle("on", u === "cm");
     document.getElementById("h-ft").classList.toggle("on", u === "ft");
 
@@ -28,3 +31,55 @@ fetch("countries.csv")
     });
     select.value = 'global';
   });
+
+function getHeightCm(){
+    if(Unitmode === 'cm'){
+        var v = parseFloat(document.getElementById('h-cm').value);
+        return (isFinite(v) && v > 50) ? v : null;
+    }
+    var ft = parseFloat(document.getElementById('height-ft').value) || 0;
+    var ins = parseFloat(document.getElementById('height-in').value) || 0;
+    var cm = ft * 30.48 + ins * 2.54;
+    return cm > 50 ? cm : null;
+}
+
+function formatBig(n){
+    n = Math.round(n);
+    if(n >= 1e9)
+        return (n/1e9).toFixed(2) + ' billion';
+    if(n >= 1e6)
+        return (n/1e6).toFixed(2) + ' million';
+
+    return n.toLocaleString('en-US');
+}
+
+function formatShort(n){
+    n = Math.round(n);
+    if(n >= 1e9)
+        return (n/1e9).toFixed(2) + 'B';
+    if(n >= 1e6)
+        return (n/1e6).toFixed(2) + 'M';
+    if(n >= 1000)
+        return (n/1000).toFixed(2) + 'K';
+
+    return n.toString();
+}
+
+function formatProb(p){
+    if (p >= 0.1)
+        return (p*100).toFixed(1) + '%';
+    if (p >= 0.001)
+        return (p*100).toFixed(2) + '%';
+
+    return (p*100).toExponential(2) + '%';
+}
+
+function formatOneIn(n){
+    n = Math.round(n);
+    if(n>= 1e9)
+        return (n/1e9).toFixed(1) + ' billion';
+    if( n >= 1e6)
+        return (n/1e6).toFixed(1) + ' million';
+
+    return n.toLocaleString('en-US');
+}
