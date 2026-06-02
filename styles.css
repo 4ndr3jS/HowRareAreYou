@@ -9,8 +9,8 @@ html {
 }
 
 body{
-    background: rgb(255, 249, 168);
-    color: #f7f4ef;
+    background: #f7f4ef;
+    color: #1c1a17;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     min-height: 100vh;
 }
@@ -131,6 +131,7 @@ input:focus, select:focus {
     font-size: 1rem;
     color: #8a877f;
     flex-shrink: 0;
+    margin-right: 20px;
 }
 
 .unit-toggle{
@@ -161,4 +162,33 @@ input:focus, select:focus {
 .unit-toggle button.on{
     background: #1c1a17;
     color: #fff;
+}
+
+.another-wrapper{
+    border-top: 1px solid #d0cdc5;
+    padding-top: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.cta {
+    background: #b84a0e;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.04rem;
+    padding: 0.85rem 2rem;
+    text-transform: uppercase;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.cta:hover{
+    background: #e07040;
+}
+
+.cta:active{
+    transform: scale(0.98);
 }
