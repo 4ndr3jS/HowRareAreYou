@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Rare Are You?</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <h1>How Rare Are You?</h1>
+            <span class="sub">fun probabilty calculator</span>
+        </header>
+
+        <section id="form">
+            <p class="lbl">Your profile</p>
+            <div class="fields">
+
+                <div class="field">
+                    <label for="birdthday">Birthday</label>
+                    <input type="date" id="birdthday">
+                </div>
+
+                <div class="field">
+                    <label for="country">Country</label>
+                    <select id="country"></select>
+                </div>
+
+                <div class="field full">
+                    <label>Height</label>
+                    <div class="height-row">
+                        <input type="number" id="height-cm" placeholder="175" min="50" max="280">
+                        <div id="wrapper"> <!-- for the americans-->
+                            <input type="number" id='height-ft' min="1" max="9">
+                            <span class="num">ft</span>
+                            <input type="number" id="height-in" min="0" max="11">
+                            <span class="num">in</span>
+                        </div>
+                        <div class="unit-toggle">
+                            <button id="h-cm" class="on" onclick="idk">cm</button>
+                            <button id="h-ft" onclick="idk">ft</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
