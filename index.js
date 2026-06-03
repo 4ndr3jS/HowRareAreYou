@@ -66,12 +66,21 @@ function formatShort(n){
 }
 
 function formatProb(p){
-    if (p >= 0.1)
-        return (p*100).toFixed(1) + '%';
-    if (p >= 0.001)
-        return (p*100).toFixed(2) + '%';
+    const percent = p * 100;
 
-    return (p*100).toExponential(2) + '%';
+    if (percent >= 10)
+        return percent.toFixed(1) + '%';
+
+    if (percent >= 1)
+        return percent.toFixed(2) + '%';
+
+    if (percent >= 0.01)
+        return percent.toFixed(4) + '%';
+
+    if (percent >= 0.0001)
+        return percent.toFixed(6) + '%';
+
+    return percent.toFixed(8) + '%';
 }
 
 function formatOneIn(n){
@@ -206,15 +215,12 @@ function makeHeightChart(heightCm, mean, sd){
         ctx.fillText(Math.round(mean) + ' cm', xZ(0), H - 2);
 
         var hDisp = unitMode === 'ft'
-            ? Math.floor(heightCm / 30.48) + "'" + Math.round((heightCm / 2.54) % 12) + "'"
+            ? Math.floor(heightCm / 30.48) + "'" + Math.round((heightCm / 2.54) % 12) + '"'
             : Math.round(heightCm) + ' cm';
         ctx.fillStyle = '#b84a0e';
         var labelX = Math.min(W - 32, Math.max(32, ux));
-        var labelY = z > 0 ? H - 2 : H - 2;
+        var labelY = H - 2;
 
-        if(Math.abs(xZ(zClamped) - xZ(0)) < 50){
-            labelY = H - 2;
-        }
         ctx.fillText('you: ' + hDisp, labelX, labelY);
 
         ctx.fillStyle = '#c0bdb5';
@@ -303,7 +309,7 @@ function calculate(){
                     : 'a near-average birth month';
         cards.push({
             trait: 'Birthday', value: MONTH_FULL[mIdx] + ' ' + dayN, prob: birthdayProb,
-            desc: MONTH_FULL[mIdx] + ' is ' + monthAdj + ' — ' + relPct + '% of the monthly average birth rate. Births peak in late summer and autumn globally (Aug/Sep) due to seasonal conception patterns, and dip in winter (Feb). Being born in a high-frequency month makes your birth month slightly less rare. The specific day (' + dayN + ') is assumed uniformly distributed across the ' + daysInMonth + ' days of ' + MONTH_FULL[mIdx] + ', contributing 1/' + daysInMonth + ' to the monthly probability. The highlighted bar in the chart below is your birth month.',
+            desc: MONTH_FULL[mIdx] + ' is ' + monthAdj + ', ' + relPct + '% of the monthly average birth rate. Births peak in late summer and autumn globally (Aug/Sep) due to seasonal conception patterns, and dip in winter (Feb). Being born in a high-frequency month makes your birth month slightly less rare. The specific day (' + dayN + ') is assumed uniformly distributed across the ' + daysInMonth + ' days of ' + MONTH_FULL[mIdx] + ', contributing 1/' + daysInMonth + ' to the monthly probability. The highlighted bar in the chart below is your birth month.',
             chartFn: function(mi){
                 return function(){
                     return makeBirthdayChart(mi);
@@ -318,21 +324,21 @@ function calculate(){
         prob *= hProb;
 
         var hDisp = unitMode === 'ft'
-            ? Math.floor(heightCm / 30.48) + "'" + Math.round((heightCm / 2.54) % 12) + "'"
+            ? Math.floor(heightCm / 30.48) + "'" + Math.round((heightCm / 2.54) % 12) + '"'
             : Math.round(heightCm) + ' cm';
-        var pctile = Math.round(normPDF(z) * 100);
+        var pctile = Math.round(normCDF(z) * 100);
         var dir = z > 0 ? 'taller' : 'shorter';
         var rareAdj = hProb < 0.05 ? 'very rare'
                     : hProb < 0.16 ? 'uncommon'
-                    : hProb < 0.32 ? 'slightly below average frequeny'
+                    : hProb < 0.32 ? 'slightly below average frequency'
                     : 'close to average (common)';
-        steps.push({trait: 'Height', desc: hDisp + '(z=' + z.toFixed(2) + ')', p: hProb, running: prob });
+        steps.push({trait: 'Height', desc: hDisp + ' (z=' + z.toFixed(2) + ')', p: hProb, running: prob });
         
         var capturedHDisp = hDisp;
         var capturedZ = z.toFixed(2);
         cards.push({
             trait: 'Height', value: hDisp, prob: hProb,
-            desc: 'In ' + cName + ', the average height is ' + Math.round(hMean) + ' cm (SD ' + hSD + ' cm). You are ' + capturedHDisp + ' — ' + Math.abs(z).toFixed(1) + ' standard deviations ' + dir + ' than average (z = ' + capturedZ + '), at the ' + pctile + 'th percentile. ' + formatProb(hProb) + ' of people are at least this far from the mean — making your height ' + rareAdj + '. Crucially: both unusually tall and unusually short people are rare; only average height is common. The shaded area on the curve shows the population fraction matching your extremity.',
+            desc: 'In ' + cName + ', the average height is ' + Math.round(hMean) + ' cm (SD ' + hSD + ' cm). You are ' + capturedHDisp + ', ' + Math.abs(z).toFixed(1) + ' standard deviations ' + dir + ' than average (z = ' + capturedZ + '), at the ' + pctile + 'th percentile. ' + formatProb(hProb) + ' of people are at least this far from the mean, making your height ' + rareAdj + '. Crucially: both unusually tall and unusually short people are rare; only average height is common. The shaded area on the curve shows the population fraction matching your extremity.',
             chartFn: (function(h, m, s){ return function(){ return makeHeightChart(h, m, s); }; })(heightCm, hMean, hSD)
         });
     }
@@ -346,7 +352,7 @@ function calculate(){
     cards.push({
         trait: 'Handedness', value: handLabel, prob: handProb,
         desc: hand === 'right'
-            ? 'About 89% of people are right-handed. The overwhelming majority globally. This is the most common handedness and adds very little to your party. The bar chart reflects population shares.'
+            ? 'About 89% of people are right-handed. The overwhelming majority globally. This is the most common handedness and adds very little to your profile. The bar chart reflects population shares.'
             : hand === 'left'
             ? 'About 10% of people are left-handed. Despite being a clear minority, left-handedness is well established in the population and moderately contributes to your rarity.'
             : 'Only about 1% of people are genuinely ambidextrous, able to use both hands with equal skill. This is a very rare trait and adds much more rarity to you.',
@@ -360,7 +366,7 @@ function calculate(){
     var WorldPopulation = 8100000000;
     cards.push({
         trait: 'Country / Region', value: cName, prob: null,
-        desc: cName + ' has a population of ' + formatBig(pop) + ' (' + ((pop/WorldPopulation)* 100).toFixed(2) + '% of the world). Your country does not directly multiply into the rarity, but is just used as a refrence. The final estimated match count is: combined probabilty × ' + formatBig(pop) + '.',
+        desc: cName + ' has a population of ' + formatBig(pop) + ' (' + ((pop/WorldPopulation)* 100).toFixed(2) + '% of the world). Your country does not directly multiply into the rarity, but is just used as a refrence. The final estimated match count is: combined probability × ' + formatBig(pop) + '.',
         chartFn: null
     });
     
@@ -379,8 +385,8 @@ function render(o){
     document.getElementById('r-onein').textContent = '1 in ' +formatOneIn(o.oneIn);
     document.getElementById('r-sub').textContent =
     'Estimated ' + Math.round(o.estimate).toLocaleString('en-US') +
-    ' people in ' + o.cName + ' share your exact combinationof traits - ' +
-    formatProb(o.prob) + ' of the population.';
+    ' people in ' + o.cName + ' share your exact combination of traits (' +
+    formatProb(o.prob) + ' of the population).';
 
     setTimeout(function(){
         document.getElementById('meter').style.width = o.rarityPct + '%';
@@ -418,6 +424,20 @@ function render(o){
         }
         cardsEl.appendChild(card);
     });
+
+    var chainEl = document.getElementById('chain-rows');
+    chainEl.innerHTML = '';
+    o.steps.forEach(function(s) {
+        var row = document.createElement('div');
+        row.className = 'chain-row';
+        row.innerHTML =
+            '<span class="cr-trait"><strong>' + s.trait + '</strong>, ' + s.desc + '</span>' +
+            '<span class="cr-p">' + formatProb(s.p) + '</span>' +
+            '<span class="cr-run">running: ' + formatProb(s.running) + '</span>';
+        chainEl.appendChild(row);
+    });
+    document.getElementById('chain-box').style.display = 'block';
+    
 }
 
 function retry(){
