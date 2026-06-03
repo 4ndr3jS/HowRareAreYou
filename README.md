@@ -15,6 +15,12 @@ Its a very fun probability calculator built with **vanilla HTML, CSS, and JavaSc
 
 ---
 
+## How it works
+
+This project estimates how rare your combination of traits is by multiplying the probabilities of factors as gender, height, handedness, and birthday using population statistics. It then shows approximately how many people in a selected country share a profile similar to yours and explaining the contribution of each trait. From the math side of things it uses normal distributions and z-scores to calculate height rarity with the cumulative distribution function and two-tailed probability and it uses logs for easier viewing.
+
+---
+
 ## Tech stack
 
 * **HTML**
