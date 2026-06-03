@@ -43,10 +43,64 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="field">
+                    <label>Handedness</label>
+                    <div class="rpg">
+                        <label class="rp"><input type="radio" name="hand" value="right" checked><span>Right</span></label>
+                        <label class="rp"><input type="radio" name="hand" value="left" ><span>Left</span></label>
+                        <label class="rp"><input type="radio" name="hand" value="ambidextous"><span>Ambidextous</span></label>
+                    </div>
+                </div>
+                
             </div>
             <div class="another-wrapper">
                 <button class="cta" onclick="calculate()">Calculate my rarity &rarr;</button>
             </div>
+        </section>
+
+        <section id="results">
+            <div class="result-hero">
+                <h2>You are <em id="r-onein">1 in -</em></h2>
+                <p class="hero-sub" id="r-sub"></p>
+                <div class="meter-wrap">
+                    <div class="meter-labels">
+                        <span>Very common</span><span>Extremely rare</span>
+                    </div>
+                    <div class="meter-track">
+                        <div class="meter-fill" id="meter"></div>
+                    </div>
+                    <div class="meter-note" id="meter-note"></div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="sc">
+                    <span class="v" id="sc-pop">-</span><span class="l">Refrence population</span>
+                </div>
+                <div class="sc">
+                    <span class="v" id="sc-prob">-</span><span class="l">Combined population</span>
+                </div>
+                <div class="sc">
+                    <span class="v" id="sc-match">-</span><span class="l">Estimated matches</span>
+                </div>
+            </div>
+
+            <p class="sec-lbl">Trait breakdown</p>
+            <div class="trait-cards" id="trait-cards"></div>
+
+            <div class="chain" id="chain-box">
+                <div class="chain-hd">
+                    Probabilty chain
+                </div>
+                <div id="chain-rows"></div>
+            </div>
+
+            <div class="disc">
+                <strong>Methodology:</strong> Traits are assumed statistically independent (see chain above for how each multiplies in). Height rarity uses the two tailed probobility of being <em>at least as far from the mean</em> as you are - so both tall and short are rare, and average height is common. Birthday rarity uses real seasonal birth frequency data rather then a flat 1/365. Country sets the refrence population but does not change per trait rarity. Gender is a population split, not a rarity score. Independence assumption means true overlap may differ slightly.
+            </div>
+
+            <button class="retry-button" onclick="retry()">&larr; Try different stats</button>
         </section>
     </div>
 

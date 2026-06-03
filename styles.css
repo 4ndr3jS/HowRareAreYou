@@ -192,3 +192,133 @@ input:focus, select:focus {
 .cta:active{
     transform: scale(0.98);
 }
+
+.rpg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.rp{
+    cursor: pointer;
+}
+
+.rp input{ 
+    display: none;
+}
+
+.rp span{
+    display: block;
+    border: 1px solid #b8b4ab;
+    border-radius: 4px;
+    background: #fff; 
+    font-size: 0.88rem;
+    padding: 0.4rem 0.85rem;
+    color: #4a4740;
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.rp input:checked + span{
+    background: #1c1a17;
+    color: #fff;
+    border-color: #1c1a17;
+}
+
+#results {
+    display: none;
+}
+.result-hero{
+    background: #fff;
+    border: 1px solid #b8b4ab;
+    border-radius: 4px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-hero h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2.4rem;
+    font-weight: normal;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+}
+
+.result-hero h2 em{
+    font-size: normal;
+    color: #b84a0e;
+}
+
+.result-hero .hero-sub{
+    font-size: 0.9rem;
+    color: #4a4740;
+    line-height: 1.65;
+}
+
+.meter-wrap{
+    margin: 1.25rem 0 0;
+}
+.meter-labels{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a877f;
+    margin-bottom: 0.35rem;
+}
+
+.meter-track {
+    height: 10px;
+    background: #e3e0d8;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.meter-fill{
+    height: 100%;
+    border-radius: 100px;
+    background: #b84a0e;
+    width: 0%;
+    transition: width 1.1s cubic-bezier(0.22, 1. 0.36, 1);
+}
+
+.meter-note{
+    font-size: 0.78rem;
+    color: #8a877f;
+    margin-top: 0.3rem;
+    text-align: right;
+}
+.stats{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #d0cdc5;
+    border: 1px solid #d0cdc5;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.sc {
+    background: #f7f4ef;
+    padding: 1rem;
+    text-align: center;
+}
+
+.sc .v{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+    color: #1c1a17;
+}
+
+.sc .l{
+    font-size: 0.65rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: #8a877f;
+    margin-top: 0.2rem;
+    display: block;
+}
