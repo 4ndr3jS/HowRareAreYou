@@ -45,14 +45,22 @@
                 </div>
 
                 <div class="field">
+                    <label>Gender</label>
+                    <div class="rpg">
+                        <label class="rp"><input type="radio" name="gender" value="male" checked><span>Male</span></label>
+                        <label class="rp"><input type="radio" name="gender" value="female"><span>Female</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
                     <label>Handedness</label>
                     <div class="rpg">
                         <label class="rp"><input type="radio" name="hand" value="right" checked><span>Right</span></label>
                         <label class="rp"><input type="radio" name="hand" value="left" ><span>Left</span></label>
-                        <label class="rp"><input type="radio" name="hand" value="ambidextous"><span>Ambidextous</span></label>
+                        <label class="rp"><input type="radio" name="hand" value="ambidextrous"><span>Ambidextous</span></label>
                     </div>
                 </div>
-                
+
             </div>
             <div class="another-wrapper">
                 <button class="cta" onclick="calculate()">Calculate my rarity &rarr;</button>
@@ -86,7 +94,7 @@
                 </div>
             </div>
 
-            <p class="sec-lbl">Trait breakdown</p>
+            <p class="sec-lbl" style="margin-bottom: 10px;">Trait breakdown</p>
             <div class="trait-cards" id="trait-cards"></div>
 
             <div class="chain" id="chain-box">
@@ -97,7 +105,7 @@
             </div>
 
             <div class="disc">
-                <strong>Methodology:</strong> Traits are assumed statistically independent (see chain above for how each multiplies in). Height rarity uses the two tailed probobility of being <em>at least as far from the mean</em> as you are - so both tall and short are rare, and average height is common. Birthday rarity uses real seasonal birth frequency data rather then a flat 1/365. Country sets the refrence population but does not change per trait rarity. Gender is a population split, not a rarity score. Independence assumption means true overlap may differ slightly.
+                <strong>Methodology:</strong> Traits are assumed statistically independent (see chain above for how each multiplies in). Height rarity uses the two tailed probobility of being <em>at least as far from the mean</em> as you are, so both tall and short are rare, and average height is common. Birthday rarity uses real seasonal birth frequency data rather then a flat 1/365. Country sets the refrence population but does not change per trait rarity. Gender is a population split, not a rarity score.
             </div>
 
             <button class="retry-button" onclick="retry()">&larr; Try different stats</button>
